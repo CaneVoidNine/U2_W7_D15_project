@@ -147,6 +147,26 @@ const deleteMovie = async () => {
 
   Dbutton.addEventListener("click", deleteMovie);
 };
+const optionEdit = {
+  method: "PUT",
+  headers: {
+    Authorization:
+      "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzZjZmE4MWQ0YmUzZDAwMTU4NDYwMjYiLCJpYXQiOjE2NjgwODY0MDEsImV4cCI6MTY2OTI5NjAwMX0.ecElZ8gwuFf9laGk7MvkKPExEvdCm2cnS9zzYA2TesA",
+    "Content-Type": "application/json",
+  },
+};
+
+const editMovie = async () => {
+  const response = await fetch(
+    `https://striveschool-api.herokuapp.com/api/movies/${movieId}`,
+    optionPut
+  );
+  if (response.ok) {
+    alert("The movie was edited successfully!");
+  } else {
+    throw new Error("Error! Please try again!");
+  }
+};
 window.onload = async () => {
   const item = await loadMovies();
   const items = await loadMoviess();
@@ -155,3 +175,4 @@ window.onload = async () => {
   renderMoviess(items);
   renderMoviesss(itemz);
 };
+// Got really confused with my code will try to rebuild it and do it properly...
