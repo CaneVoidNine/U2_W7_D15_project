@@ -55,7 +55,7 @@ const renderMovies = (movie) => {
     liMovie.className = "list-group-item";
     liButtDel.className = "btn btn-danger";
 
-    liMovie.innerText = `${item.name}, ${item.category}, ${item.description}`;
+    liMovie.innerText = `${item.name}, ${item.description}, ${item.category}`;
     liButt.innerText = "Edit";
     liButtDel.innerText = "Delete";
     containerMovie.appendChild(liMovie);
@@ -83,7 +83,7 @@ const renderMoviess = (moviess) => {
     liButtDel.className = "btn btn-danger";
     liButt.innerText = "Edit";
     liButtDel.innerText = "Delete";
-    liMovie.innerText = `${item.name}, ${item.category}, ${item.description}`;
+    liMovie.innerText = `${item.name}, ${item.description}, ${item.category}`;
     containerMovie.appendChild(liMovie);
     containerMovie.appendChild(liButt);
     containerMovie.appendChild(liButtDel);
@@ -108,7 +108,7 @@ const renderMoviesss = (moviez) => {
     liMovie.className = "list-group-item";
     liButt.innerText = "Edit";
     liButtDel.innerText = "Delete";
-    liMovie.innerText = `${item.name}, ${item.category}, ${item.description}`;
+    liMovie.innerText = `${item.name}, ${item.description}, ${item.category}`;
     containerMovie.appendChild(liMovie);
     containerMovie.appendChild(liButt);
     containerMovie.appendChild(liButtDel);
@@ -159,7 +159,7 @@ const optionEdit = {
 const editMovie = async () => {
   const response = await fetch(
     `https://striveschool-api.herokuapp.com/api/movies/${movieId}`,
-    optionPut
+    optionEdit
   );
   if (response.ok) {
     alert("The movie was edited successfully!");
