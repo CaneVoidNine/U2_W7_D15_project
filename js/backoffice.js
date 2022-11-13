@@ -1,6 +1,3 @@
-const params = new URLSearchParams(location.search);
-const id = params.get("id");
-
 async function onFormSubmit(event) {
   event.preventDefault();
 
@@ -123,7 +120,8 @@ const renderMoviesss = (moviez) => {
 <li class="list-group-item">And a fifth one</li>
 </ul>
 */
-
+const params = new URLSearchParams(location.search);
+const id = params.get("id");
 const delOptions = {
   method: "DELETE",
   headers: {
@@ -132,26 +130,28 @@ const delOptions = {
   },
 };
 const loadDelete = async (event) => {
+  event.preventDefault();
   try {
-    const response = await fetch(
-      "https://striveschool-api.herokuapp.com/api/movies" + id,
-      {
+    if (confirm("Do you really want to delete a Movie???")) {
+      const deleteOptions = {
         method: "DELETE",
         headers: {
           Authorization:
             "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzZjZmE4MWQ0YmUzZDAwMTU4NDYwMjYiLCJpYXQiOjE2NjgwODY0MDEsImV4cCI6MTY2OTI5NjAwMX0.ecElZ8gwuFf9laGk7MvkKPExEvdCm2cnS9zzYA2TesA",
         },
+      };
+      const response = await fetch(
+        `https://striveschool-api.herokuapp.com/api/movies/${movieID}`,
+        deleteOptions
+      );
+      if (response.ok) {
+        window.location.assign("index.html");
+      } else {
+        alert("Error while deleting!");
       }
-    );
-
-    if (!response.ok) throw new Error("Failed to delete product");
-
-    alert("All good - product deleted successfully.");
-    location.assign("index.html");
+    }
   } catch (error) {
-    alert(error.message);
-  } finally {
-    setLoading(false);
+    alert(`Some error occured: ${error}`);
   }
 };
 
