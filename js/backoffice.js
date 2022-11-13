@@ -54,6 +54,7 @@ const renderMovies = (movie) => {
     liButt.className = "btn btn-success";
     liMovie.className = "list-group-item";
     liButtDel.className = "btn btn-danger";
+
     liMovie.innerText = `${item.name}, ${item.category}, ${item.description}`;
     liButt.innerText = "Edit";
     liButtDel.innerText = "Delete";
@@ -78,6 +79,7 @@ const renderMoviess = (moviess) => {
     let liButtDel = document.createElement("button");
     liButt.className = "btn btn-success";
     liMovie.className = "list-group-item";
+
     liButtDel.className = "btn btn-danger";
     liButt.innerText = "Edit";
     liButtDel.innerText = "Delete";
@@ -120,41 +122,31 @@ const renderMoviesss = (moviez) => {
 <li class="list-group-item">And a fifth one</li>
 </ul>
 */
-const params = new URLSearchParams(location.search);
-const id = params.get("id");
-const delOptions = {
+Dbutton = document.querySelector(".btn btn-danger");
+const optionDelete = {
   method: "DELETE",
   headers: {
     Authorization:
       "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzZjZmE4MWQ0YmUzZDAwMTU4NDYwMjYiLCJpYXQiOjE2NjgwODY0MDEsImV4cCI6MTY2OTI5NjAwMX0.ecElZ8gwuFf9laGk7MvkKPExEvdCm2cnS9zzYA2TesA",
+    "Content-Type": "application/json",
   },
 };
-const loadDelete = async (event) => {
-  event.preventDefault();
-  try {
-    if (confirm("Do you really want to delete a Movie???")) {
-      const deleteOptions = {
-        method: "DELETE",
-        headers: {
-          Authorization:
-            "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzZjZmE4MWQ0YmUzZDAwMTU4NDYwMjYiLCJpYXQiOjE2NjgwODY0MDEsImV4cCI6MTY2OTI5NjAwMX0.ecElZ8gwuFf9laGk7MvkKPExEvdCm2cnS9zzYA2TesA",
-        },
-      };
-      const response = await fetch(
-        `https://striveschool-api.herokuapp.com/api/movies/${movieID}`,
-        deleteOptions
-      );
-      if (response.ok) {
-        window.location.assign("index.html");
-      } else {
-        alert("Error while deleting!");
-      }
-    }
-  } catch (error) {
-    alert(`Some error occured: ${error}`);
-  }
-};
 
+const deleteMovie = async () => {
+  const response = await fetch(
+    `https://striveschool-api.herokuapp.com/api/movies/${movieId}`,
+    optionDelete
+  );
+  if (confirm("Do you really want to delete this movie?")) {
+    if (response.ok) {
+      alert("The movie was deleted successfully!");
+    } else {
+      throw new Error("Error! Please try again!");
+    }
+  }
+
+  Dbutton.addEventListener("click", deleteMovie);
+};
 window.onload = async () => {
   const item = await loadMovies();
   const items = await loadMoviess();
@@ -162,6 +154,4 @@ window.onload = async () => {
   renderMovies(item);
   renderMoviess(items);
   renderMoviesss(itemz);
-  Button = document.querySelector(".btn btn-danger");
-  Button.addEventListener("click", loadDelete(event));
 };
